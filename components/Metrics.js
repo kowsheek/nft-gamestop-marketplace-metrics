@@ -75,16 +75,16 @@ export default function Metrics({ totalCount, totalVolume }) {
         <GridItem style={{ justifyContent: 'end' }}>
           {totalUSDVolumeDisplay}
         </GridItem>
-        <GridItem>USD Volume</GridItem>
+        <GridItem>Volume</GridItem>
 
         <GridItem style={{ justifyContent: 'end' }}>
           {feesUSDDisplay}
         </GridItem>
-        <GridItem>USD Fees&#x2a;</GridItem>
+        <GridItem>Fees&#x2a;</GridItem>
       </div>
 
       <p style={{ display: 'flex', justifyContent: 'center' }}>
-        &#x2a; Assuming 1.25&#x25; of volume
+        &#x2a;Assuming 1.25&#x25; of volume
       </p>
     </div>
   )
