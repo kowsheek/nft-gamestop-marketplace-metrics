@@ -28,7 +28,7 @@ async function getPrice(volume) {
   const totalUSDVolume = (volume * usdConversion)
   return {
     volume: currencyFormatter.format(totalUSDVolume),
-    fees: currencyFormatter.format(totalUSDVolume * 0.0125)
+    fees: currencyFormatter.format(totalUSDVolume * 0.0225)
   }
 }
 
@@ -85,7 +85,7 @@ export default function Metrics({ totalCount, totalVolume }) {
       </div>
 
       <p style={{ display: 'flex', justifyContent: 'center' }}>
-        &#x2a; <Link href="https://github.com/kowsheek/nft-gamestop-marketplace-metrics/issues/1">Assuming 1.25&#x25; of volume</Link>
+        &#x2a; <Link href="https://github.com/kowsheek/nft-gamestop-marketplace-metrics/issues/1">Assuming 2.25&#x25; of volume</Link>
       </p>
     </div>
   )
