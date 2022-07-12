@@ -10,6 +10,7 @@
   "dependencies": {
     "bignumber.js": "^9.0.2",
     "cypress": "^10.0.3",
+    "get-eth-price": "^1.0.0",
     "moment": "^2.29.4",
     "next": "^12.1.5",
     "react": "^18.0.0",
