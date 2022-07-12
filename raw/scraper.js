@@ -1,10 +1,11 @@
+const { default: BigNumber } = require('bignumber.js');
 const puppeteer = require('puppeteer');
 const collections = require('./collections.json');
 
 (async () => {
     const browser = await puppeteer.launch();
     let totalNFTCount = 0
-    let totalVolume = 0
+    let totalVolume = new BigNumber(-0);
 
     await Promise.all(collections.map(async (collection) => {
         console.log(collection.collectionId)
@@ -16,12 +17,13 @@ const collections = require('./collections.json');
         });
 
         totalNFTCount += parsedMetrics.itemCount
-        totalVolume += parseFloat(parsedMetrics.totalVolume)
-        console.log(parsedMetrics)
+
+        const totalVolumeBN = new BigNumber(parsedMetrics.totalVolume);
+        totalVolume = totalVolume.plus(totalVolumeBN)
     }));
 
     console.log(`Total NFT Count: ${totalNFTCount}`)
-    console.log(`Total Volume: ${totalVolume}`)
-  
+    console.log(`Total Volume: ${totalVolume.toString()}`)
+
     await browser.close();
 })();
