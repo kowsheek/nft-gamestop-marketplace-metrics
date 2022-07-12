@@ -11,6 +11,27 @@ const GridItem = (props) => {
   )
 }
 
+const USDCurrencyConfig = {
+  style: 'currency',
+  currency: 'USD'
+}
+
+const locale = Intl.DateTimeFormat().resolvedOptions().locale
+const currencyFormatter = new Intl.NumberFormat(locale, USDCurrencyConfig)
+const numberFormatter = new Intl.NumberFormat(locale)
+
+async function getPrice(volume) {
+  const priceResponse = await getEthPriceNow()
+  const entryKey = Object.keys(priceResponse)[0]
+  const usdConversion = priceResponse[entryKey].ETH.USD
+  const totalUSDVolume = (volume * usdConversion)
+  return {
+    volume: currencyFormatter.format(totalUSDVolume),
+    fees: currencyFormatter.format(totalUSDVolume * 0.0125)
+  }
+}
+
+
 export default function Metrics({ totalCount, totalVolume }) {
   const [totalETHVolumeDisplay, setTotalETHVolumeDisplay] = React.useState(0)
   const [totalUSDVolumeDisplay, setTotalUSDVolumeDisplay] = React.useState(0)
@@ -22,21 +43,14 @@ export default function Metrics({ totalCount, totalVolume }) {
     return bn
   }, [totalVolume])
 
-  const formatNumber = (num) => {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
-  useEffect(async () => {
-    async function getPrice() {
-      const priceResponse = await getEthPriceNow()
-      const entryKey = Object.keys(priceResponse)[0]
-      const usdConversion = priceResponse[entryKey].ETH.USD
-      const totalUSDVolume = totalVolumeBN * usdConversion
-      setTotalUSDVolumeDisplay(totalUSDVolume.toFixed(2))
-      setFeesUSDDisplay((totalUSDVolume * 0.0125).toFixed(2))
+  useEffect(() => {
+    const handleGetPrice = async () => {
+      const { fees, volume } = await getPrice(totalVolumeBN)
+      setTotalUSDVolumeDisplay(volume)
+      setFeesUSDDisplay(fees)
     }
-    getPrice()
-  }, [totalVolumeBN])
+    handleGetPrice()
+  }, [totalVolumeBN]);
 
   return (
     <div>
@@ -49,28 +63,28 @@ export default function Metrics({ totalCount, totalVolume }) {
         }}
       >
         <GridItem style={{ justifyContent: 'end' }}>
-          {formatNumber(totalCount)}
+          {numberFormatter.format(totalCount)}
         </GridItem>
         <GridItem>NFTs</GridItem>
 
         <GridItem style={{ justifyContent: 'end' }}>
-          {formatNumber(totalETHVolumeDisplay)}
+          {numberFormatter.format(totalETHVolumeDisplay)}
         </GridItem>
         <GridItem>ETH Volume</GridItem>
 
         <GridItem style={{ justifyContent: 'end' }}>
-          ${formatNumber(totalUSDVolumeDisplay)}
+          {totalUSDVolumeDisplay}
         </GridItem>
-        <GridItem>USD Volume</GridItem>
+        <GridItem>Volume</GridItem>
 
         <GridItem style={{ justifyContent: 'end' }}>
-          ${formatNumber(feesUSDDisplay)}
+          {feesUSDDisplay}
         </GridItem>
-        <GridItem>USD Fees&#x2a;</GridItem>
+        <GridItem>Fees&#x2a;</GridItem>
       </div>
 
       <p style={{ display: 'flex', justifyContent: 'center' }}>
-        &#x2a; Assuming 1.25&#x25; of volume
+        &#x2a;Assuming 1.25&#x25; of volume
       </p>
     </div>
   )
