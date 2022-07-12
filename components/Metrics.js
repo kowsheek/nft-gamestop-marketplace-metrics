@@ -33,7 +33,7 @@ export default function Metrics({ totalCount, totalVolume }) {
       const usdConversion = priceResponse[entryKey].ETH.USD
       const totalUSDVolume = totalVolumeBN * usdConversion
       setTotalUSDVolumeDisplay(totalUSDVolume.toFixed(2))
-      setFeesUSDDisplay((totalUSDVolume * 0.0225).toFixed(2))
+      setFeesUSDDisplay((totalUSDVolume * 0.0125).toFixed(2))
     }
     getPrice()
   }, [totalVolumeBN])
@@ -70,7 +70,7 @@ export default function Metrics({ totalCount, totalVolume }) {
       </div>
 
       <p style={{ display: 'flex', justifyContent: 'center' }}>
-        &#x2a; Assuming 2.25&#x25; of volume
+        &#x2a; Assuming 1.25&#x25; of volume
       </p>
     </div>
   )
