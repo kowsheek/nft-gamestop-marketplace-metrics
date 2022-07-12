@@ -21,9 +21,9 @@ export default function Home() {
           <Link href={'https://nft.gamestop.com'}>GameStop NFT Marketplace</Link> launched {duration}.
         </p>
         <p>
-          <Metrics totalCount={53361} totalVolume={746978453125734600000}></Metrics>
+          <Metrics totalCount={53415} totalVolume={960194229413969000000}></Metrics>
         </p>
-        <p>Last updated at 11/07/2022 23:00 EST</p>
+        <p>Last updated at 12/07/2022 01:35 EST</p>
       </main>
       <Footer />
     </div>
