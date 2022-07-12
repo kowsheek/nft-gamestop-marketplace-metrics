@@ -2,13 +2,15 @@ import { useMemo } from 'react';
 import Head from 'next/head'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
-import moment from 'moment';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import Link from 'next/link';
 import Metrics from '@components/Metrics';
 
 export default function Home() {
 
-  const duration = moment("20220711", "YYYYMMDD").fromNow()
+  dayjs.extend(relativeTime);
+  const duration = dayjs("2022-07-11").fromNow()
 
   return (
     <div className="container">
