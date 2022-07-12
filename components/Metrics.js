@@ -7,6 +7,7 @@ export default function Metrics({ totalCount, totalVolume }) {
 
     const [totalETHVolumeDisplay, setTotalETHVolumeDisplay] = React.useState(0);
     const [totalUSDVolumeDisplay, setTotalUSDVolumeDisplay] = React.useState(0);
+    const [feesUSDDisplay, setFeesUSDDisplay] = React.useState(0);
 
     const totalVolumeBN = useMemo(() => {
         const bn = BigNumber(totalVolume).div(pow);
@@ -19,7 +20,9 @@ export default function Metrics({ totalCount, totalVolume }) {
             const priceResponse = await getEthPriceNow()
             const entryKey = Object.keys(priceResponse)[0]
             const usdConversion = priceResponse[entryKey].ETH.USD
-            setTotalUSDVolumeDisplay((totalVolumeBN * usdConversion).toFixed(2))
+            const totalUSDVolume = (totalVolumeBN * usdConversion)
+            setTotalUSDVolumeDisplay(totalUSDVolume.toFixed(2))
+            setFeesUSDDisplay((totalUSDVolume * 0.0125).toFixed(2))
         }
         getPrice()
     }, [totalVolumeBN]);
@@ -28,6 +31,9 @@ export default function Metrics({ totalCount, totalVolume }) {
         <h2 className="title">{totalCount} NFTs</h2>
         <h2 className="title">{totalETHVolumeDisplay} ETH Volume</h2>
         <h2 className="title">${totalUSDVolumeDisplay} USD Volume</h2>
+        <h2 className="title">${feesUSDDisplay} USD Fees&#x2a;</h2>
+
+        <p>&#x2a; Assuming 1.25&#x25; of volume</p>
     </div>
   }
   
