@@ -1,7 +1,27 @@
 import React, { useEffect, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-const { getEthPriceNow }= require('get-eth-price');
+import { getEthPriceNow } from 'get-eth-price';
 const pow = BigNumber(10).pow(18);
+
+const USDCurrencyConfig = {
+    style: 'currency',
+    currency: 'USD'
+}
+
+const locale = Intl.DateTimeFormat().resolvedOptions().locale
+
+async function getPrice(volume) {
+    const priceResponse = await getEthPriceNow()
+    const entryKey = Object.keys(priceResponse)[0]
+    const usdConversion = priceResponse[entryKey].ETH.USD
+    const totalUSDVolume = (volume * usdConversion)
+    return {
+        volume: currencyFormatter.format(totalUSDVolume),
+        fees: currencyFormatter.format(totalUSDVolume * 0.0125)
+    }
+}
+
+const currencyFormatter = new Intl.NumberFormat(locale, USDCurrencyConfig)
 
 export default function Metrics({ totalCount, totalVolume }) {
 
@@ -15,23 +35,20 @@ export default function Metrics({ totalCount, totalVolume }) {
         return bn;
     }, [totalVolume]);
     
-    useEffect(async () => {
-        async function getPrice() {
-            const priceResponse = await getEthPriceNow()
-            const entryKey = Object.keys(priceResponse)[0]
-            const usdConversion = priceResponse[entryKey].ETH.USD
-            const totalUSDVolume = (totalVolumeBN * usdConversion)
-            setTotalUSDVolumeDisplay(totalUSDVolume.toFixed(2))
-            setFeesUSDDisplay((totalUSDVolume * 0.0125).toFixed(2))
+    useEffect(() => {
+        const handleGetPrice = async () => {
+            const { fees, volume } = await getPrice(totalVolumeBN)
+            setTotalUSDVolumeDisplay(volume)
+            setFeesUSDDisplay(fees)
         }
-        getPrice()
+        handleGetPrice()
     }, [totalVolumeBN]);
 
     return <div>
         <h2 className="title">{totalCount} NFTs</h2>
         <h2 className="title">{totalETHVolumeDisplay} ETH Volume</h2>
-        <h2 className="title">${totalUSDVolumeDisplay} USD Volume</h2>
-        <h2 className="title">${feesUSDDisplay} USD Fees&#x2a;</h2>
+        <h2 className="title">{totalUSDVolumeDisplay} Volume</h2>
+        <h2 className="title">{feesUSDDisplay} Fees&#x2a;</h2>
 
         <p>&#x2a; Assuming 1.25&#x25; of volume</p>
     </div>
