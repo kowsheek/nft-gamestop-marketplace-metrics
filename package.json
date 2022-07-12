@@ -8,10 +8,13 @@
     "export": "next export"
   },
   "dependencies": {
+    "bignumber.js": "^9.0.2",
     "cypress": "^10.0.3",
+    "moment": "^2.29.4",
     "next": "^12.1.5",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-moment": "^1.1.2"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.11.1"
