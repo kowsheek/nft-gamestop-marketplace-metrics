@@ -33,7 +33,7 @@ async function getPrice(volume) {
 }
 
 
-export default function Metrics({ totalCount, totalVolume }) {
+export default function Metrics({ totalCollections, totalCount, totalVolume }) {
   const [totalETHVolumeDisplay, setTotalETHVolumeDisplay] = React.useState(0)
   const [totalUSDVolumeDisplay, setTotalUSDVolumeDisplay] = React.useState(0)
   const [feesUSDDisplay, setFeesUSDDisplay] = React.useState(0)
@@ -64,6 +64,10 @@ export default function Metrics({ totalCount, totalVolume }) {
         }}
       >
         <GridItem style={{ justifyContent: 'end' }}>
+          {numberFormatter.format(totalCollections)}
+        </GridItem>
+        <GridItem>Collections</GridItem>
+        <GridItem style={{ justifyContent: 'end' }}>
           {numberFormatter.format(totalCount)}
         </GridItem>
         <GridItem>NFTs</GridItem>
@@ -76,7 +80,7 @@ export default function Metrics({ totalCount, totalVolume }) {
         <GridItem style={{ justifyContent: 'end' }}>
           {totalUSDVolumeDisplay}
         </GridItem>
-        <GridItem>Volume</GridItem>
+        <GridItem>USD Volume</GridItem>
 
         <GridItem style={{ justifyContent: 'end' }}>
           {feesUSDDisplay}
