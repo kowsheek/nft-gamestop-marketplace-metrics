@@ -23,7 +23,7 @@ export default function Home() {
           <Link href={'https://nft.gamestop.com'}>GameStop NFT Marketplace</Link> launched {duration}.
         </p>
         <Metrics totalCollections={AggregateData.totalCollections} totalCount={AggregateData.totalCount} totalVolume={AggregateData.totalVolumeETH}></Metrics>
-        <p>Last updated at 13/07/2022 09:00 EST</p>
+        <p>Last updated at 14/07/2022 09:00 EST</p>
       </main>
       <Footer />
     </div>
