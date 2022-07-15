@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import Link from 'next/link'
+import Chart from './Chart'
 const { getEthPriceNow } = require('get-eth-price')
 const pow = BigNumber(10).pow(18)
 
@@ -91,6 +92,8 @@ export default function Metrics({ totalCollections, totalCount, totalVolume }) {
       <p style={{ display: 'flex', justifyContent: 'center' }}>
         &#x2a; <Link href="https://github.com/kowsheek/nft-gamestop-marketplace-metrics/issues/1">Assuming 2.25&#x25; of volume</Link>
       </p>
+
+      <Chart />
     </div>
   )
 }
