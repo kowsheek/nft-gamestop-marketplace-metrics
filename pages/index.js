@@ -3,7 +3,6 @@ import Header from '@components/Header'
 import Footer from '@components/Footer'
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import Link from 'next/link';
 import Metrics from '@components/Metrics';
 import AggregateData from '../public/data/aggregate.json'
 
@@ -20,7 +19,7 @@ export default function Home() {
       <main>
         <Header title="GameStop NFT Marketplace Metrics" />
         <p className="description">
-          <Link href={'https://nft.gamestop.com'}>GameStop NFT Marketplace</Link> launched {duration}.
+          <a href={'https://nft.gamestop.com'} target="_blank">GameStop NFT Marketplace</a> launched {duration}.
         </p>
         <Metrics totalCollections={AggregateData.totalCollections} totalCount={AggregateData.totalCount} totalVolume={AggregateData.totalVolumeETH}></Metrics>
         <p>Last updated at 15/07/2022 09:00 EST</p>
