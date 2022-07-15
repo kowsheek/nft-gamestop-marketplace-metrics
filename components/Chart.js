@@ -24,7 +24,7 @@ ChartJS.register(
   Legend
 )
 
-export const options = {
+const chartOptions = {
   responsive: true,
   scales: {
     x: {
@@ -51,11 +51,23 @@ export const options = {
 }
 
 const formatData = (parsed) => {
-  const headlines = parsed.data[0]
+  // const headlines = parsed.data[0]
   let data = parsed.data
   data.shift()
 
-  const labels = data.map((ele) => new Date(ele[0] * 1000).toLocaleString())
+  const opt = {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  }
+
+  const labels = data.map((ele) => {
+    let date = new Date(ele[0] * 1000).toLocaleString([], opt)
+    return date.split(', ')
+  })
   const values = data.map((ele) => BigNumber(ele[1]).div(pow).toFixed(2))
 
   const dataset = []
@@ -76,7 +88,7 @@ const formatData = (parsed) => {
   }
 }
 
-const Chart = ({ snapshots }) => {
+const Chart = () => {
   const [data, setData] = useState()
 
   useEffect(() => {
@@ -97,10 +109,10 @@ const Chart = ({ snapshots }) => {
       style={{
         width: '80vw',
         maxWidth: '800px',
-        padding: '22px 0px 22px 0px',
+        padding: '20px 0px 20px 0px',
       }}
     >
-      {data && <Line options={options} data={data} />}
+      {data && <Line options={chartOptions} data={data} />}
     </div>
   )
 }
