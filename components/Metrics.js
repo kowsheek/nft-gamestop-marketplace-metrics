@@ -93,7 +93,7 @@ export default function Metrics({ totalCollections, totalCount, totalVolume }) {
         &#x2a; <Link href="https://github.com/kowsheek/nft-gamestop-marketplace-metrics/issues/1">Assuming 2.25&#x25; of volume</Link>
       </p>
 
-      <Chart />
+      {/* <Chart /> */}
     </div>
   )
 }

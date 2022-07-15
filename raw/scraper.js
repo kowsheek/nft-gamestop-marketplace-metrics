@@ -13,15 +13,22 @@ const collections = require('./collections.json');
         await page.goto(`https://api.nft.gamestop.com/nft-svc-marketplace/getCollectionStats?collectionId=${collection.collectionId}`);
         await page.content(); 
         const parsedMetrics = await page.evaluate(() =>  {
-            return JSON.parse(document.querySelector("body").innerText); 
+            try {
+                return JSON.parse(document.querySelector("body").innerText); 
+            } catch (e) {
+                return null;
+            }
         });
 
-        totalNFTCount += parsedMetrics.itemCount
+        if(parsedMetrics !== null) {
+            totalNFTCount += parsedMetrics.itemCount
 
-        const totalVolumeBN = new BigNumber(parsedMetrics.totalVolume);
-        totalVolume = totalVolume.plus(totalVolumeBN)
+            const totalVolumeBN = new BigNumber(parsedMetrics.totalVolume);
+            totalVolume = totalVolume.plus(totalVolumeBN)
+        }
     }));
 
+    console.log(`Timestamp: ${Math.floor(new Date().getTime() / 1000)}`)
     console.log(`Total NFT Count: ${totalNFTCount}`)
     console.log(`Total Volume: ${totalVolume.toString()}`)
 
