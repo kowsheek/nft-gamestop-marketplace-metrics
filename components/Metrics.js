@@ -59,7 +59,7 @@ export default function Metrics({ totalCollections, totalCount, totalVolume }) {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'auto auto',
+          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
           columnGap: '20px',
           rowGap: '20px',
         }}
@@ -93,7 +93,7 @@ export default function Metrics({ totalCollections, totalCount, totalVolume }) {
         &#x2a; <Link href="https://github.com/kowsheek/nft-gamestop-marketplace-metrics/issues/1">Assuming 2.25&#x25; of volume</Link>
       </p>
 
-      {/* <Chart /> */}
+      <Chart />
     </div>
   )
 }
