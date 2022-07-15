@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
 }
 
 * {
@@ -17,12 +19,35 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   grid-column: 2 / span 6;
+}
+
+main > div > p:last-of-type {
+  margin-bottom: 0;
+  color: #535353;
+}
+
+h1 span {
+  color: #D11000;
+}
+
+h2:nth-child(odd) {
+  font-weight: 300;
+  color: #bdc0c6;
+}
+
+a, a:visited {
+  color: #a60c0c;
+}
+
+a:hover {
+  color: #860404;
 }
 
 footer {
   grid-column: 2 / span 6;
+  color: #535353;
+  font-style: italic;
 }
 
 code {
